@@ -20,7 +20,7 @@ if (fs.exists(pathDB)) {
 var db = new sqlite3.Database(pathDB);
 
 db.serialize(function() {
-  db.run("CREATE TABLE IF NOT EXISTS lorem (info TEXT)");
+  db.run("CREATE TABLE IF NOT EXISTS user (pseudo TEXT, sexe TEXT, cherche TEXT)");
 });
 
 db.close();
@@ -66,6 +66,27 @@ app.get('/enregistrerUtilisateur', function(req, res) {
 
 app.get('/voirRejeton', function(req, res) {
 	console.log('voirRejeton()');
+	
+	reqJson = readJsonReponse(req);
+	
+	resJson = {
+		"accessoires": randomIntInc(1, 10),
+		"bouche" : Math.floor((Math.random() * 10) + 1),
+		"fond": Math.floor((Math.random() * 10) + 1),
+		"front" : Math.floor((Math.random() * 10) + 1),
+		"jambes" : Math.floor((Math.random() * 10) + 1),
+		"menton" : Math.floor((Math.random() * 10) + 1),
+		"nez" : Math.floor((Math.random() * 10) + 1),
+		"tempe" : Math.floor((Math.random() * 10) + 1),
+		"tete" : Math.floor((Math.random() * 10) + 1),
+		"yeux" : Math.floor((Math.random() * 10) + 1)
+		};
+	
+	envoyerReponse(res, resJson);
+});
+
+app.get('/mii', function(req, res) {
+	console.log('mii()');
 	
 	reqJson = readJsonReponse(req);
 	
