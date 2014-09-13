@@ -64,8 +64,33 @@ app.get('/enregistrerUtilisateur', function(req, res) {
 	envoyerReponse(res, true);
 });
 
+app.get('/voirRejeton', function(req, res) {
+	console.log('voirRejeton()');
+	
+	reqJson = readJsonReponse(req);
+	
+	resJson = {
+		"accessoires": randomIntInc(1, 10),
+		"bouche" : Math.floor((Math.random() * 10) + 1),
+		"fond": Math.floor((Math.random() * 10) + 1),
+		"front" : Math.floor((Math.random() * 10) + 1),
+		"jambes" : Math.floor((Math.random() * 10) + 1),
+		"menton" : Math.floor((Math.random() * 10) + 1),
+		"nez" : Math.floor((Math.random() * 10) + 1),
+		"tempe" : Math.floor((Math.random() * 10) + 1),
+		"tete" : Math.floor((Math.random() * 10) + 1),
+		"yeux" : Math.floor((Math.random() * 10) + 1)
+		};
+	
+	envoyerReponse(res, resJson);
+});
+
+function randomIntInc (low, high) {
+    return Math.floor(Math.random() * (high - low + 1) + low);
+}
+
 function envoyerReponse(res, json) {
-	console.log("envoyerReponse : " + json);
+	console.log("envoyerReponse : " + JSON.stringify(json));
 	res.jsonp(json);
 }
 
