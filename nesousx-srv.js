@@ -6,6 +6,7 @@ var app = express();
 
 var pathDB = './nesousx.db';
 var pathQuestionsPhysiques = './q-physique.json';
+var pathQuestionsPhychologiques = './q-phycho.json';
 
 // suppression du fichier de la base
 if (fs.exists(pathDB)) {
@@ -29,18 +30,37 @@ app.post('/test', function(req, res) {
 
 app.get('/getListeQuestionsPhysiques', function(req, res) {
 	console.log('getListeQuestionsPhysiques()');
-	//~ console.log(req.body.objectData);
-	//~ res.contentType('json');
-	//~ res.send({ some: 'json' });
-	readQuestionsPhysiques();
+	
+	json = readQuestionsPhysiques();
+	
+	envoyerReponse(res, json);
 });
 
+app.get('/getListeQuestionsPsychologiques', function(req, res) {
+	console.log('getListeQuestionsPsychologiques()');
+	
+	json = readQuestionsPsychologiques();
+	
+	envoyerReponse(res, json);
+});
+
+function envoyerReponse(res, json) {
+	reponse = "_jqjsp(" + JSON.stringify(json) + ");";
+	
+	res.contentType('json');
+	res.send(reponse);
+}
+
 function readQuestionsPhysiques() {
-	readQuestions(pathQuestionsPhysiques);
+	return readQuestions(pathQuestionsPhysiques);
+}
+
+function readQuestionsPsychologiques() {
+	return readQuestions(pathQuestionsPhychologiques);
 }
 
 function readQuestions(path) {
-	json = require(path);
+	return require(path);
 }
 
 var server = app.listen(3000, function() {

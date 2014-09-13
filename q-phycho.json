@@ -1,0 +1,21 @@
+{
+	"qr": {
+		"id": 0,
+		"question": "Je suis plutôt...",
+		"reponses": {
+			"0": "Timide",
+			"1": "Introverti",
+			"2": "Déjanté",
+			"3": "A mettre chez les dingues"
+		}
+	},
+
+	"qr": {
+		"id": 1,
+		"question": "Quand je sors...",
+		"reponses": {
+			"0": "",
+			"1": "Yao Ming (plus grand basketteur de la NBA)"
+		}
+	}
+}
