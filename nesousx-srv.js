@@ -95,7 +95,10 @@ app.get('/enregistrerUtilisateur', function(req, res) {
 			} else {
 				lastInsertedId(function(id) {
 					console.log("id = " + id);
-					data = {'id' : id};
+					data = {
+						'id' : id,
+						'questions' : readQuestions(pathQuestions)
+						};
 					envoyerReponse(res, data);	
 				});
 			}
