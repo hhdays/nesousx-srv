@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.set("jsonp callback", true);
 app.set("jsonp callback name", "callback");
 
-var pathDB = './nesousx.db';
+var pathDB = './db.sqlite';
 //~ var pathQuestionsPhysiques = './q-physique.json';
 //~ var pathQuestionsPhychologiques = './q-phycho.json';
 var pathQuestions = './questions.json';
@@ -22,7 +22,7 @@ var db = new sqlite3.Database(pathDB);
 
 db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT UNIQUE, sexe TEXT, cherche TEXT)");
-  db.run("CREATE TABLE IF NOT EXISTS mini (id INTEGER PRIMARY KEY AUTOINCREMENT, numAccessoires INTEGER, numBouche INTEGER, numFond INTEGER, numFront INTEGER, numJambes INTEGER, numMenton INTEGER, numNez INTEGER, numTempe INTEGER, numTete INTEGER, numYeux INTEGER)");
+  db.run("CREATE TABLE IF NOT EXISTS mini (id INTEGER PRIMARY KEY AUTOINCREMENT, idUser INTEGER UNIQUE, discriminent TEXT, numAccessoires INTEGER, numBouche INTEGER, numFond INTEGER, numFront INTEGER, numJambes INTEGER, numMenton INTEGER, numNez INTEGER, numTempe INTEGER, numTete INTEGER, numYeux INTEGER, UNIQUE(idUser, discriminent))");
   db.run("CREATE TABLE IF NOT EXISTS reponse (idUser INTEGER, numQuestion INTEGER, numReponse INTEGER, PRIMARY KEY (idUser, numQuestion))");
 });
 
@@ -163,7 +163,7 @@ app.get('/enregistrerReponses', function(req, res) {
 	
 	enregistrerReponses(json);
 	minime = genererMinime(json.id);
-	//~ enregistrerReponses(json);
+	enregistrerMinime(json.id, minime);
 	
 	envoyerReponse(res, minime);
 });
@@ -190,6 +190,46 @@ function enregistrerReponses(json) {
 		});
 	});
 	//~ stmt.finalize();
+}
+
+function enregistrerMinime(id, minime) {
+	return enregistrerMini(id, minime, "ME");
+}
+
+function enregistrerMiniwe(id, minime) {
+	return enregistrerMini(id, minime, "WE");
+}
+
+function enregistrerMini(id, minime, type) {
+	console.log("enregistrerMinime() : " + id + ", " + minime);
+	
+	var stmt = db.prepare("insert into mini (idUser, discriminent, numAccessoires, numBouche, numFond, numFront, numJambes, numMenton, numNez, numTempe, numTete, numYeux) VALUES ($idUser, $discriminent, $numAccessoires, $numBouche, $numFond, $numFront, $numJambes, $numMenton, $numNez, $numTempe, $numTete, $numYeux)");
+		var placeholders = {
+				$idUser : id,
+				$discriminent : type,
+				$numAccessoires : minime.accessoires,
+				$numBouche : minime.bouche,
+				$numFond : minime.fond,
+				$numFront : minime.front,
+				$numJambes : minime.jambes,
+				$numMenton : minime.menton,
+				$numNez : minime.nez,
+				$numTempe : minime.tempe,
+				$numTete : minime.tete,
+				$numYeux : minime.yeux
+			};
+		stmt.run(placeholders, function(err, row) {
+			console.log(row);
+			if(err) {
+				console.log("enregistrerMinime : erreur lors de l'enregistrement");
+			} else {
+				lastInsertedId(function(id) {
+					console.log("enregistrerMinime last id = " + id);
+					data = {'id' : id};
+				});
+			}
+		});
+		stmt.finalize();
 }
 
 
