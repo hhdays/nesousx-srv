@@ -87,7 +87,7 @@ app.get('/enregistrerUtilisateur', function(req, res) {
 	var placeholders = {
 			$pseudo: json.pseudo,
 			$sexe: json.sexe,
-			$cherche: json.chercher
+			$cherche: json.cherche
 		};
 	stmt.run(placeholders, function(err, row) {
 			console.log(row);
