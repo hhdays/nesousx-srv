@@ -48,7 +48,7 @@
 		"questionLib": "Si vous vous êtes enfermé sur le palier de l'appartement en petite tenue",
 		"reponses": [
 			{"id": 0, "reponseLib": "Vous forcez la porte quitte à vous déboîter une epaule."},
-			{"id": 1, "reponseLib": "Chic, c’est l'occasion d'aller sonner chez le voisin/la voisine. (sana doute inspiré par les scénarios de Marc Dorcel)"},
+			{"id": 1, "reponseLib": "Chic, c’est l'occasion d'aller sonner chez le voisin/la voisine. (sans doute inspiré par les scénarios de Marc Dorcel)"},
 			{"id": 2, "reponseLib": "Vous vous couvrez de paillassons. Vous avez horreur qu'on voie vos bourrelets et vergetures."}
 		]
 	}
