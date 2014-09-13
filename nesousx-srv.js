@@ -22,6 +22,7 @@ var db = new sqlite3.Database(pathDB);
 
 db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT UNIQUE, sexe TEXT, cherche TEXT)");
+  db.run("CREATE TABLE IF NOT EXISTS mini (id INTEGER PRIMARY KEY AUTOINCREMENT, numAccessoires INTEGER, numBouche INTEGER, numFond INTEGER, numFront INTEGER, numJambes INTEGER, numMenton INTEGER, numNez INTEGER, numTempe INTEGER, numTete INTEGER, numYeux INTEGER)");
   db.run("CREATE TABLE IF NOT EXISTS reponse (idUser INTEGER, numQuestion INTEGER, numReponse INTEGER, PRIMARY KEY (idUser, numQuestion))");
 });
 
@@ -131,7 +132,13 @@ app.get('/voirRejeton', function(req, res) {
 app.get('/mii', function(req, res) {
 	console.log('mii()');
 	
-	reqJson = readJsonReponse(req);
+	resJson = afficherMimime();
+	
+	envoyerReponse(res, resJson);
+});
+
+function genererMinime(id) {
+	console.log('afficherMimime()');
 	
 	resJson = {
 		"accessoires": randomIntInc(1, 10),
@@ -145,15 +152,23 @@ app.get('/mii', function(req, res) {
 		"tete" : Math.floor((Math.random() * 10) + 1),
 		"yeux" : Math.floor((Math.random() * 10) + 1)
 		};
-	
-	envoyerReponse(res, resJson);
-});
+		
+	return resJson;
+}
 
 app.get('/enregistrerReponses', function(req, res) {
 	console.log('enregistrerReponses()');
 	
 	json = readJsonReponse(req);
 	
+	enregistrerReponses(json);
+	minime = genererMinime(json.id);
+	//~ enregistrerReponses(json);
+	
+	envoyerReponse(res, minime);
+});
+
+function enregistrerReponses(json) {
 	json.reponses.forEach(function(item) {
 		console.log(item.idQ + " : " + item.idR);
 	
@@ -164,20 +179,18 @@ app.get('/enregistrerReponses', function(req, res) {
 				$numReponse: item.idR
 			};
 		stmt.run(placeholders, function(err, row) {
-				console.log(row);
-				if(err) {
-				} else {
-					lastInsertedId(function(id) {
-						console.log("id = " + id);
-						data = {'id' : id};
-					});
-				}
-			});
+			console.log(row);
+			if(err) {
+			} else {
+				lastInsertedId(function(id) {
+					console.log("id = " + id);
+					data = {'id' : id};
+				});
+			}
+		});
 	});
 	//~ stmt.finalize();
-	
-	envoyerReponse(res, true);
-});
+}
 
 
 function randomIntInc (low, high) {
