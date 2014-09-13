@@ -2,7 +2,11 @@ var fs = require('fs');
 var sqlite3 = require('sqlite3').verbose();
 var lineReader = require('line-reader');
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
+app.use(bodyParser.json());
+app.set("jsonp callback", true);
+app.set("jsonp callback name", "callback");
 
 var pathDB = './nesousx.db';
 var pathQuestionsPhysiques = './q-physique.json';
@@ -21,11 +25,19 @@ db.serialize(function() {
 
 db.close();
 
-app.post('/test', function(req, res) {
+app.get('/test', function(req, res) {
 	console.log('plop');
-	console.log(req.body.objectData);
-	res.contentType('json');
-	res.send({ some: 'json' });
+	
+	reponse = {
+			"nom": "valeur"
+		}
+	
+	json = JSON.parse(req.query.q);
+	
+	console.log(json);
+	console.log(JSON.stringify(json));
+	
+	res.jsonp(reponse);
 });
 
 app.get('/getListeQuestionsPhysiques', function(req, res) {
@@ -42,6 +54,14 @@ app.get('/getListeQuestionsPsychologiques', function(req, res) {
 	json = readQuestionsPsychologiques();
 	
 	envoyerReponse(res, json);
+});
+
+app.get('/enregistrerUtilisateur', function(req, res) {
+	console.log('enregistrerUtilisateur()');
+	
+	readJsonReponse(req.body);
+	
+	envoyerReponse(res, true);
 });
 
 function envoyerReponse(res, json) {
@@ -61,6 +81,12 @@ function readQuestionsPsychologiques() {
 
 function readQuestions(path) {
 	return require(path);
+}
+
+function readJsonReponse(jsonString) {
+	jsonString.replace(/^_jqjsp\(*/g, "");
+	console.log(jsonString);
+	json = JSON.parse(jsonString);
 }
 
 var server = app.listen(3000, function() {

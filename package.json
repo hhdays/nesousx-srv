@@ -4,6 +4,7 @@
   "dependencies": {
     "express": "4.x",
     "sqlite3": "2.2.7",
-    "line-reader": "*"
+    "line-reader": "*",
+    "body-parser": "*"
   }
 }
