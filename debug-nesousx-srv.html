@@ -22,14 +22,44 @@
 				//~ ]
 			//~ }
 		//~ ];
+		
+		
+		
+		
+		//~ mydata = {
+			//~ "pseudo": "morgan",
+			//~ "sexe": "h",
+			//~ "cherche": "f"
+		//~ }
+		
+		
+		
 		mydata = {
-			"pseudo": "morgan",
-			"jeSuis": "h",
-			"jeRecherche": "f"
-		}
+			"id" : 1,
+			"reponses" : [
+				{
+					"idQ": 1,
+					"idR": 1
+				},
+				{
+					"idQ": 2,
+					"idR": 2
+				},
+				{
+					"idQ": 3,
+					"idR": 3
+				},
+				{
+					"idQ": 4,
+					"idR": 12
+				}
+			]
+		};
 		
 		$.ajax({
-			url: "http://localhost:3000/enregistrerUtilisateur",
+			//~ url: "http://localhost:3000/getListeQuestions",
+			url: "http://localhost:3000/enregistrerReponses",
+			//~ url: "http://s.ploki.fr:3000/voirRejeton",
 		 
 			// the name of the callback parameter, as specified by the YQL service
 			jsonp: "callback",

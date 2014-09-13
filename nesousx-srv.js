@@ -22,6 +22,7 @@ var db = new sqlite3.Database(pathDB);
 
 db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT UNIQUE, sexe TEXT, cherche TEXT)");
+  db.run("CREATE TABLE IF NOT EXISTS reponse (idUser INTEGER, numQuestion INTEGER, numReponse INTEGER, PRIMARY KEY (idUser, numQuestion))");
 });
 
 app.get('/test', function(req, res) {
@@ -90,7 +91,7 @@ app.get('/enregistrerUtilisateur', function(req, res) {
 	stmt.run(placeholders, function(err, row) {
 			console.log(row);
 			if(err) {
-				envoyerReponse(res, true);
+				envoyerReponse(res, false);
 			} else {
 				lastInsertedId(function(id) {
 					console.log("id = " + id);
@@ -148,7 +149,29 @@ app.get('/mii', function(req, res) {
 app.get('/enregistrerReponses', function(req, res) {
 	console.log('enregistrerReponses()');
 	
-	readJsonReponse(req);
+	json = readJsonReponse(req);
+	
+	json.reponses.forEach(function(item) {
+		console.log(item.idQ + " : " + item.idR);
+	
+		var stmt = db.prepare("INSERT INTO reponse (idUser, numQuestion, numReponse) VALUES ($idUser, $numQuestion, $numReponse)");
+		var placeholders = {
+				$idUser: json.id,
+				$numQuestion: item.idQ,
+				$numReponse: item.idR
+			};
+		stmt.run(placeholders, function(err, row) {
+				console.log(row);
+				if(err) {
+				} else {
+					lastInsertedId(function(id) {
+						console.log("id = " + id);
+						data = {'id' : id};
+					});
+				}
+			});
+	});
+	//~ stmt.finalize();
 	
 	envoyerReponse(res, true);
 });
