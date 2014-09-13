@@ -21,7 +21,7 @@ if (fs.exists(pathDB)) {
 var db = new sqlite3.Database(pathDB);
 
 db.serialize(function() {
-  db.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT, sexe TEXT, cherche TEXT)");
+  db.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT UNIQUE, sexe TEXT, cherche TEXT)");
 });
 
 app.get('/test', function(req, res) {
@@ -68,17 +68,39 @@ app.get('/enregistrerUtilisateur', function(req, res) {
 	
 	json = readJsonReponse(req);
 	
-    var stmt = db.prepare("INSERT INTO user (pseudo, sexe, cherche) VALUES ($pseudo, $sexe, $cherche)");
-    var placeholders = {
+	//~ query = "select count(*) from user where pseudo = " + json.pseudo;
+	//~ 
+	//~ try {
+		//~ db.each(query, function(err, row) {
+			  //~ console.log("utilisateur "+ json.pseudo +" existe déjà en base");
+			  //~ throw "utilisateur présent";
+		  //~ });
+	//~ } catch (e) {
+		//~ console.log("utlisateur présent exception : " + e);
+		//~ envoyerReponse(res, true);
+		//~ return;
+	//~ }
+	
+	var stmt = db.prepare("INSERT INTO user (pseudo, sexe, cherche) VALUES ($pseudo, $sexe, $cherche)");
+	var placeholders = {
 			$pseudo: "morgan",
 			$sexe: "h",
 			$cherche: "f"
 		};
-    stmt.run(placeholders);
-    stmt.finalize();
-    stmt.close();
+	stmt.run(placeholders, function(err, row) {
+			console.log(row);
+			if(err) {
+				envoyerReponse(res, true);
+			} else {
+				lastInsertedId(function(id) {
+					console.log("id = " + id);
+					data = {'id' : id};
+					envoyerReponse(res, data);	
+				});
+			}
+		});
+	stmt.finalize();
 	
-	envoyerReponse(res, true);
 });
 
 app.get('/voirRejeton', function(req, res) {
@@ -123,6 +145,15 @@ app.get('/mii', function(req, res) {
 	envoyerReponse(res, resJson);
 });
 
+app.get('/enregistrerReponses', function(req, res) {
+	console.log('enregistrerReponses()');
+	
+	readJsonReponse(req);
+	
+	envoyerReponse(res, true);
+});
+
+
 function randomIntInc (low, high) {
     return Math.floor(Math.random() * (high - low + 1) + low);
 }
@@ -149,6 +180,13 @@ function readJsonReponse(req) {
 	json = JSON.parse(req.query.q);
 	
 	return json;
+}
+
+function lastInsertedId(callback) {
+	db.each("select last_insert_rowid();", function(err, row) {
+		console.log("lastInsertedId() = " + row['last_insert_rowid()']);
+		callback(row['last_insert_rowid()']);
+	});
 }
 
 var server = app.listen(3000, function() {
