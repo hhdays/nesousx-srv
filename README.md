@@ -8,4 +8,4 @@ npm install
 
 Lancement du serveur :
 ----------------------
-node nosousx-srv.js
+node nesousx-srv.js
