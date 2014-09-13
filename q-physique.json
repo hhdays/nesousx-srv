@@ -1,21 +1,21 @@
-{
-	"qr": {
+[
+	{
 		"id": 0,
-		"question": "J'aime le sport...",
-		"reponses": {
-			"0": "Un peu",
-			"1": "Beaucoup",
-			"2": "A la folie",
-			"3": "Pas du tout"
-		}
+		"questionLib": "J'aime le sport...",
+		"reponses": [
+			{"id": 0, "reponseLib": "Un peu"},
+			{"id": 1, "reponseLib": "Beaucoup"},
+			{"id": 2, "reponseLib": "A la folie"},
+			{"id": 3, "reponseLib": "Fous-moi la paix et donne moi la télécommande !"}
+		]
 	},
 
-	"qr": {
+	{
 		"id": 1,
-		"question": "On dit souvent de moi que je ressemble à...",
-		"reponses": {
-			"0": "Un nain de jardin",
-			"1": "Yao Ming (plus grand basketteur de la NBA)"
-		}
+		"questionLib": "On dit souvent de moi que je ressemble à...",
+		"reponses": [
+			{"id": 0, "reponseLib": "Un nain de jardin"},
+			{"id": 1, "reponseLib": "Yao Ming (plus grand basketteur de la NBA)"}
+		]
 	}
-}
+]
