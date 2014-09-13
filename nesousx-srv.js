@@ -9,8 +9,9 @@ app.set("jsonp callback", true);
 app.set("jsonp callback name", "callback");
 
 var pathDB = './nesousx.db';
-var pathQuestionsPhysiques = './q-physique.json';
-var pathQuestionsPhychologiques = './q-phycho.json';
+//~ var pathQuestionsPhysiques = './q-physique.json';
+//~ var pathQuestionsPhychologiques = './q-phycho.json';
+var pathQuestions = './questions.json';
 
 // suppression du fichier de la base
 if (fs.exists(pathDB)) {
@@ -20,10 +21,8 @@ if (fs.exists(pathDB)) {
 var db = new sqlite3.Database(pathDB);
 
 db.serialize(function() {
-  db.run("CREATE TABLE IF NOT EXISTS user (pseudo TEXT, sexe TEXT, cherche TEXT)");
+  db.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT, sexe TEXT, cherche TEXT)");
 });
-
-db.close();
 
 app.get('/test', function(req, res) {
 	console.log('plop');
@@ -38,6 +37,14 @@ app.get('/test', function(req, res) {
 	console.log(JSON.stringify(json));
 	
 	res.jsonp(reponse);
+});
+
+app.get('/getListeQuestions', function(req, res) {
+	console.log('getListeQuestions()');
+	
+	json = readQuestions(pathQuestions);
+	
+	envoyerReponse(res, json);
 });
 
 app.get('/getListeQuestionsPhysiques', function(req, res) {
@@ -59,7 +66,17 @@ app.get('/getListeQuestionsPsychologiques', function(req, res) {
 app.get('/enregistrerUtilisateur', function(req, res) {
 	console.log('enregistrerUtilisateur()');
 	
-	readJsonReponse(req);
+	json = readJsonReponse(req);
+	
+    var stmt = db.prepare("INSERT INTO user (pseudo, sexe, cherche) VALUES ($pseudo, $sexe, $cherche)");
+    var placeholders = {
+			$pseudo: "morgan",
+			$sexe: "h",
+			$cherche: "f"
+		};
+    stmt.run(placeholders);
+    stmt.finalize();
+    stmt.close();
 	
 	envoyerReponse(res, true);
 });
