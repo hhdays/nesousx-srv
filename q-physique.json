@@ -1,0 +1,21 @@
+{
+	"qr": {
+		"id": 0,
+		"question": "J'aime le sport...",
+		"reponses": {
+			"0": "Un peu",
+			"1": "Beaucoup",
+			"2": "A la folie",
+			"3": "Pas du tout"
+		}
+	},
+
+	"qr": {
+		"id": 1,
+		"question": "On dit souvent de moi que je ressemble à...",
+		"reponses": {
+			"0": "Un nain de jardin",
+			"1": "Yao Ming (plus grand basketteur de la NBA)"
+		}
+	}
+}
