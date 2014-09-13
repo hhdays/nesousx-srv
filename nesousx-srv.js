@@ -84,9 +84,9 @@ app.get('/enregistrerUtilisateur', function(req, res) {
 	
 	var stmt = db.prepare("INSERT INTO user (pseudo, sexe, cherche) VALUES ($pseudo, $sexe, $cherche)");
 	var placeholders = {
-			$pseudo: "morgan",
-			$sexe: "h",
-			$cherche: "f"
+			$pseudo: json.pseudo,
+			$sexe: json.sexe,
+			$cherche: json.chercher
 		};
 	stmt.run(placeholders, function(err, row) {
 			console.log(row);
