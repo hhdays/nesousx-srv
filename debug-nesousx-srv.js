@@ -5,27 +5,30 @@ var PORT = 3000;
 
 function testEnregistrerUtilisateur() {
 	reponseUser = {
-		"test": "0"
+		"pseudo": "morgan",
+		"jeSuis": "h",
+		"jeRecherche": "f"
 	}
 	
 	var reponseUserString = JSON.stringify(reponseUser);
 	
-	sendJson(HOST, PORT, '/test', "_jqjsp(" + reponseUserString + ');');
+	sendJson(HOST, PORT, '/test', reponseUserString);
 }
 
-function sendJson(host, port, path, json) {
+function sendJson(host, port, path, jsonString) {
 	headers = {
 		'Content-Type': 'application/json',
-		'Content-Length': json.length
+		'Content-Length': jsonString.length
 	};
 	
 	var options = {
 		host: host,
 		port: port,
 		path: path,
-		method: 'POST',
+		method: 'GET',
 		headers: headers
 	};
+	
 	
 	var req = http.request(options, function(res) {
 		res.setEncoding('utf-8');
@@ -41,9 +44,13 @@ function sendJson(host, port, path, json) {
 		});
 	});
 	
-	console.log('sending json:' + json);
+	console.log('sending json:' + jsonString);
 	
-	req.write(json);
+	data = {
+		"callback": jsonString
+	};
+	
+	//~ req.write(data);
 	req.end();
 }
 

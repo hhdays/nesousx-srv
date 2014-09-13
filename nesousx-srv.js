@@ -59,16 +59,14 @@ app.get('/getListeQuestionsPsychologiques', function(req, res) {
 app.get('/enregistrerUtilisateur', function(req, res) {
 	console.log('enregistrerUtilisateur()');
 	
-	readJsonReponse(req.body);
+	readJsonReponse(req);
 	
 	envoyerReponse(res, true);
 });
 
 function envoyerReponse(res, json) {
-	reponse = "_jqjsp(" + JSON.stringify(json) + ");";
-	
-	res.contentType('json');
-	res.send(reponse);
+	console.log("envoyerReponse : " + json);
+	res.jsonp(json);
 }
 
 function readQuestionsPhysiques() {
@@ -83,10 +81,11 @@ function readQuestions(path) {
 	return require(path);
 }
 
-function readJsonReponse(jsonString) {
-	jsonString.replace(/^_jqjsp\(*/g, "");
-	console.log(jsonString);
-	json = JSON.parse(jsonString);
+function readJsonReponse(req) {
+	console.log("readJsonReponse : " + req.query.q);
+	json = JSON.parse(req.query.q);
+	
+	return json;
 }
 
 var server = app.listen(3000, function() {

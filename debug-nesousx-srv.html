@@ -1,30 +1,35 @@
 <html>
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 	<script>
-		mydata = [
-			{
-				"id": 0,
-				"questionLib": "Je suis plutôt...",
-				"reponses": [
-					{"id": 0, "reponseLib": "Timide"},
-					{"id": 1, "reponseLib": "Introverti"},
-					{"id": 2, "reponseLib": "Déjanté"},
-					{"id": 3, "reponseLib": "A mettre chez les dingues"}
-				]
-			},
-
-			{
-				"id": 1,
-				"questionLib": "Quand je sors...",
-				"reponses": [
-					{"id": 0, "reponseLib": "Comment ça 'sortir' ?"},
-					{"id": 1, "reponseLib": "'Eh mec, elle est où ma caisse ?'"}
-				]
-			}
-		];
+		//~ mydata = [
+			//~ {
+				//~ "id": 0,
+				//~ "questionLib": "Je suis plutôt...",
+				//~ "reponses": [
+					//~ {"id": 0, "reponseLib": "Timide"},
+					//~ {"id": 1, "reponseLib": "Introverti"},
+					//~ {"id": 2, "reponseLib": "Déjanté"},
+					//~ {"id": 3, "reponseLib": "A mettre chez les dingues"}
+				//~ ]
+			//~ },
+//~ 
+			//~ {
+				//~ "id": 1,
+				//~ "questionLib": "Quand je sors...",
+				//~ "reponses": [
+					//~ {"id": 0, "reponseLib": "Comment ça 'sortir' ?"},
+					//~ {"id": 1, "reponseLib": "'Eh mec, elle est où ma caisse ?'"}
+				//~ ]
+			//~ }
+		//~ ];
+		mydata = {
+			"pseudo": "morgan",
+			"jeSuis": "h",
+			"jeRecherche": "f"
+		}
 		
 		$.ajax({
-			url: "http://localhost:3000/test",
+			url: "http://localhost:3000/enregistrerUtilisateur",
 		 
 			// the name of the callback parameter, as specified by the YQL service
 			jsonp: "callback",
@@ -45,7 +50,7 @@
 	</script>
 	<body>
 		<div id="mondiv">
-			coucou
+			debug send jsonp ajax request
 		</div>
 	</body>
 </html>
