@@ -141,9 +141,9 @@ function genererMinime(id) {
 	console.log('----- afficherMimime()');
 	
 	resJson = {
-		"accessoires": randomIntInc(1, 5),
+		"accessoires": randomIntInc(1, 12),
 		"bouche" : randomIntInc(1, 14),
-		"fond": randomIntInc(1, 4),
+		"fond": randomIntInc(1, 9),
 		"front" : randomIntInc(1, 9),
 		"jambes" : randomIntInc(1, 24),
 		"menton" : randomIntInc(1, 9),
