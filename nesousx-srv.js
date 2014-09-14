@@ -276,7 +276,7 @@ app.get('/rechercherMiniwe', function(req, res) {
 			proposition = {
 				"minimeMere": minimeMere,
 				"idMere": row.idpropo,
-				"idPseudo": row.pseudoPropo,
+				"pseudoMere": row.pseudoPropo,
 				"miniwe": genererMinime(row.idpropo)
 			};
 			
