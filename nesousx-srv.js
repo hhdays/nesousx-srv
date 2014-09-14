@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.set("jsonp callback", true);
 app.set("jsonp callback name", "callback");
 
-var pathDB = './db.sqlite';
+var pathDB = './db-test.sqlite';
 //~ var pathQuestionsPhysiques = './q-physique.json';
 //~ var pathQuestionsPhychologiques = './q-phycho.json';
 var pathQuestions = './questions.json';
@@ -21,9 +21,9 @@ if (fs.exists(pathDB)) {
 var db = new sqlite3.Database(pathDB);
 
 db.serialize(function() {
-  db.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT UNIQUE, sexe TEXT, cherche TEXT)");
-  db.run("CREATE TABLE IF NOT EXISTS mini (id INTEGER PRIMARY KEY AUTOINCREMENT, idUser INTEGER UNIQUE, discriminent TEXT, numAccessoires INTEGER, numBouche INTEGER, numFond INTEGER, numFront INTEGER, numJambes INTEGER, numMenton INTEGER, numNez INTEGER, numTempe INTEGER, numTete INTEGER, numYeux INTEGER, UNIQUE(idUser, discriminent))");
-  db.run("CREATE TABLE IF NOT EXISTS reponse (idUser INTEGER, numQuestion INTEGER, numReponse INTEGER, PRIMARY KEY (idUser, numQuestion))");
+	db.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT, sexe TEXT, cherche TEXT)");
+	db.run("CREATE TABLE IF NOT EXISTS mini (id INTEGER PRIMARY KEY AUTOINCREMENT, idUser INTEGER UNIQUE, discriminent TEXT, numAccessoires INTEGER, numBouche INTEGER, numFond INTEGER, numFront INTEGER, numJambes INTEGER, numMenton INTEGER, numNez INTEGER, numTempe INTEGER, numTete INTEGER, numYeux INTEGER, UNIQUE(idUser, discriminent))");
+	db.run("CREATE TABLE IF NOT EXISTS reponse (idUser INTEGER, numQuestion INTEGER, numReponse INTEGER, PRIMARY KEY (idUser, numQuestion))");
 });
 
 app.get('/test', function(req, res) {
@@ -239,11 +239,14 @@ app.get('/rechercherMiniwe', function(req, res) {
 	
 	console.log("id = " + json.id);
 	
-	query = "select miniPropo.* from mini miniPropo, user userSelect ";
+	query = "select miniPropo.*, userPropo.id as idpropo, userPropo.pseudo as pseudoPropo from mini miniPropo, user userSelect ";
 	query += "join user userPropo ";
 	query += "	on userPropo.id = miniPropo.idUser ";
+	query += "join mini miniSelect ";
+	query += "	on miniSelect.idUser = userSelect.id ";
 	query += "where userSelect.id = " + json.id + " ";
 	query += "and (userSelect.cherche = userPropo.sexe or userSelect.cherche = 'm')";
+	console.log(query);
 	
 	var propositionsMiniwe = [];
 	
@@ -253,7 +256,9 @@ app.get('/rechercherMiniwe', function(req, res) {
 				console.log("rechercherMiniwe : erreur lors de la récupération des propositions de miniwe");
 			}
 			
-			proposition = {
+			console.log("row = " + row);
+			
+			minimeMere = {
 				"id": row.id,
 				"idUser": row.idUser,
 				"accessoires": row.numAccessoires,
@@ -267,13 +272,22 @@ app.get('/rechercherMiniwe', function(req, res) {
 				"tete" : row.numTete,
 				"yeux" : row.numYeux
 			};
+			
+			proposition = {
+				"minimeMere": minimeMere,
+				"idMere": row.idpropo,
+				"idPseudo": row.pseudoPropo,
+				"miniwe": genererMinime(row.idpropo)
+			};
+			
 			propositionsMiniwe.push(proposition);
 		}, function() {
-			envoyerReponse(res, propositionsMiniwe);
+			propRetournee = propositionsMiniwe[randomIntInc(0, propositionsMiniwe.length - 1)];
+			console.log("la proposition retournée = " + JSON.stringify(propRetournee));
+			
+			envoyerReponse(res, propRetournee);
 		});
 	});
-	
-	console.log("la proposition retournée = " + proposition[0]);
 });
 
 function proposerMiniwe(minime1, minime2) {
