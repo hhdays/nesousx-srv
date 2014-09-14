@@ -3,10 +3,10 @@
 		"id": 0,
 		"questionLib": "François Hollande vous évoque...",
 		"reponses": [
-			{"id": 0, "reponseLib": "La crise."},
-			{"id": 1, "reponseLib": "Les lunettes tchin tchin."},
-			{"id": 2, "reponseLib": "Les feux de l'amour."},
-			{"id": 3, "reponseLib": "Le retour de Nicolas."}
+			{"id": 0, "reponseLib": "La crise"},
+			{"id": 1, "reponseLib": "Les lunettes tchin tchin"},
+			{"id": 2, "reponseLib": "Les feux de l'amour"},
+			{"id": 3, "reponseLib": "Le retour de Nicolas"}
 		]
 	},
 	
@@ -14,10 +14,10 @@
 		"id": 1,
 		"questionLib": "Votre enfant de 3 ans pique une crise lorsque vous êtes sur le point de le laisser à la babysitter afin de vous rendez à une soirée entre amis...",
 		"reponses": [
-			{"id": 0, "reponseLib": "Vous annulez la soirée en remerciant la babysitter sans la payer."},
-			{"id": 1, "reponseLib": "Vous mentez à votre enfant en lui disant que vous devez y aller pour sauver l'humanité par Papa/Maman est en réalité spiderman."},
-			{"id": 2, "reponseLib": "Vous servez un verre de lait à votre enfant dans lequel vous rajoutez du Prozac."},
-			{"id": 3, "reponseLib": "Vous comptez sur votre conjoint(e) pour rattraper la situation, après tout le petit monstre a été conçu à deux et à tord."}
+			{"id": 0, "reponseLib": "Vous annulez la soirée en remerciant la babysitter sans la payer"},
+			{"id": 1, "reponseLib": "Vous mentez à votre enfant en lui disant que vous devez y aller pour sauver l'humanité par Papa/Maman est en réalité spiderman"},
+			{"id": 2, "reponseLib": "Vous servez un verre de lait à votre enfant dans lequel vous rajoutez du Prozac"},
+			{"id": 3, "reponseLib": "Vous comptez sur votre conjoint(e) pour rattraper la situation, après tout le petit monstre a été conçu à deux et à tord"}
 		]
 	},
 
@@ -25,10 +25,10 @@
 		"id": 2,
 		"questionLib": "Pour vous rendre à une fête d'halloween organisée par la maison blanche...",
 		"reponses": [
-			{"id": 0, "reponseLib": "Vous vous déguisez en Patrick Sébastien pour libérer la virilité qui sommeille en vous."},
-			{"id": 1, "reponseLib": "Vous vous habillez en noir et blanc pour rentre hommage aux séniors et notamment à Mme Genevieve de Fontenay."},
-			{"id": 2, "reponseLib": "Vous allez tout simplement accompagné de votre conjoint(e), qui est déjà un déguisement en soi."},
-			{"id": 3, "reponseLib": "Vous ne vous déguisez pas, vous détestez les américains."}
+			{"id": 0, "reponseLib": "Vous vous déguisez en Patrick Sébastien pour libérer la virilité qui sommeille en vous"},
+			{"id": 1, "reponseLib": "Vous vous habillez en noir et blanc pour rentre hommage aux séniors et notamment à Mme Genevieve de Fontenay"},
+			{"id": 2, "reponseLib": "Vous allez tout simplement accompagné de votre conjoint(e), qui est déjà un déguisement en soi"},
+			{"id": 3, "reponseLib": "Vous ne vous déguisez pas, vous détestez les américains"}
 		]
 	},
 
@@ -36,10 +36,10 @@
 		"id": 3,
 		"questionLib": "En sortant d'une boite de nuit, vous apercevez qu'on vous a tout volé sauf...",
 		"reponses": [
-			{"id": 0, "reponseLib": "Votre téléphone."},
-			{"id": 1, "reponseLib": "Votre femme/homme."},
-			{"id": 2, "reponseLib": "Votre carte de fidélité Leroy Merlin."},
-			{"id": 3, "reponseLib": "Votre dignité."}
+			{"id": 0, "reponseLib": "Votre téléphone"},
+			{"id": 1, "reponseLib": "Votre femme/homme"},
+			{"id": 2, "reponseLib": "Votre carte de fidélité Leroy Merlin"},
+			{"id": 3, "reponseLib": "Votre dignité"}
 		]
 	},
 
@@ -47,9 +47,9 @@
 		"id": 4,
 		"questionLib": "Si vous vous êtes enfermé sur le palier de l'appartement en petite tenue",
 		"reponses": [
-			{"id": 0, "reponseLib": "Vous forcez la porte quitte à vous déboîter une epaule."},
+			{"id": 0, "reponseLib": "Vous forcez la porte quitte à vous déboîter une epaule"},
 			{"id": 1, "reponseLib": "Chic, c’est l'occasion d'aller sonner chez le voisin/la voisine. (sans doute inspiré par les scénarios de Marc Dorcel)"},
-			{"id": 2, "reponseLib": "Vous vous couvrez de paillassons. Vous avez horreur qu'on voie vos bourrelets et vergetures."}
+			{"id": 2, "reponseLib": "Vous vous couvrez de paillassons. Vous avez horreur qu'on voie vos bourrelets et vergetures"}
 		]
 	}
 ]
