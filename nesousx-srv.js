@@ -245,7 +245,7 @@ app.get('/rechercherMiniwe', function(req, res) {
 	query += "join mini miniSelect ";
 	query += "	on miniSelect.idUser = userSelect.id ";
 	query += "where userSelect.id = " + json.id + " ";
-	query += "and (userSelect.cherche = userPropo.sexe or userSelect.cherche = 'm') and and userSelect.id <> miniPropo.idUser ";
+	query += "and (userSelect.cherche = userPropo.sexe or userSelect.cherche = 'm') and userSelect.id <> miniPropo.idUser ";
 	console.log(query);
 	
 	var propositionsMiniwe = [];
