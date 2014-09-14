@@ -60,4 +60,18 @@ where userSelect.id = 1 and (userSelect.cherche = userPropo.sexe or userSelect.c
 
 
 
-select miniPropo.*, userPropo.id as idpropo, userPropo.pseudo as pseudoPropo from mini miniPropo, user userSelect join user userPropo 	on userPropo.id = miniPropo.idUser join mini miniSelect 	on miniSelect.idUser = userSelect.id where userSelect.id = 1 and (userSelect.cherche = userPropo.sexe or userSelect.cherche = 'm')
+select miniPropo.*, userPropo.id as idpropo, userPropo.pseudo as pseudoPropo from mini miniPropo, user userSelect join user userPropo 	on userPropo.id = miniPropo.idUser join mini miniSelect 	on miniSelect.idUser = userSelect.id where userSelect.id = 1 and (userSelect.cherche = userPropo.sexe or userSelect.cherche = 'm');
+
+
+select miniPropo.*, userPropo.id as idpropo, userPropo.pseudo as pseudoPropo
+from mini miniPropo, user userSelect 
+join user userPropo 
+	on userPropo.id = miniPropo.idUser 
+join mini miniSelect 
+	on miniSelect.idUser = userSelect.id 
+where userSelect.id = 20 and (userSelect.cherche = userPropo.sexe or userSelect.cherche = 'm');
+
+
+
+
+select miniPropo.*, userPropo.id as idpropo, userPropo.pseudo as pseudoPropo from mini miniPropo, user userSelect join user userPropo 	on userPropo.id = miniPropo.idUser join mini miniSelect 	on miniSelect.idUser = userSelect.id where userSelect.id = 5 and (userSelect.cherche = userPropo.sexe or userSelect.cherche = 'm') and userSelect.id <> miniPropo.idUser ;
