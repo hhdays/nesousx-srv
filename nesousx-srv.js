@@ -141,16 +141,16 @@ function genererMinime(id) {
 	console.log('afficherMimime()');
 	
 	resJson = {
-		"accessoires": randomIntInc(1, 10),
-		"bouche" : Math.floor((Math.random() * 10) + 1),
-		"fond": Math.floor((Math.random() * 10) + 1),
-		"front" : Math.floor((Math.random() * 10) + 1),
-		"jambes" : Math.floor((Math.random() * 10) + 1),
-		"menton" : Math.floor((Math.random() * 10) + 1),
-		"nez" : Math.floor((Math.random() * 10) + 1),
-		"tempe" : Math.floor((Math.random() * 10) + 1),
-		"tete" : Math.floor((Math.random() * 10) + 1),
-		"yeux" : Math.floor((Math.random() * 10) + 1)
+		"accessoires": randomIntInc(1, 5),
+		"bouche" : randomIntInc(1, 14),
+		"fond": randomIntInc(1, 4),
+		"front" : randomIntInc(1, 9),
+		"jambes" : randomIntInc(1, 24),
+		"menton" : randomIntInc(1, 9),
+		"nez" : randomIntInc(1, 15),
+		"tempe" : randomIntInc(1, 9),
+		"tete" : randomIntInc(1, 60),
+		"yeux" : randomIntInc(1, 14)
 		};
 		
 	return resJson;
@@ -282,6 +282,7 @@ app.get('/rechercherMiniwe', function(req, res) {
 			
 			propositionsMiniwe.push(proposition);
 		}, function() {
+			console.log("propositionsMiniwe = " + propositionsMiniwe);
 			propRetournee = propositionsMiniwe[randomIntInc(0, propositionsMiniwe.length - 1)];
 			console.log("la proposition retournée = " + JSON.stringify(propRetournee));
 			
@@ -324,7 +325,7 @@ function readJsonReponse(req) {
 
 function lastInsertedId(callback) {
 	db.each("select last_insert_rowid();", function(err, row) {
-		console.log("lastInsertedId() = " + row['last_insert_rowid()']);
+		//console.log("lastInsertedId() = " + row['last_insert_rowid()']);
 		callback(row['last_insert_rowid()']);
 	});
 }
