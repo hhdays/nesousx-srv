@@ -42,7 +42,7 @@ app.get('/test', function(req, res) {
 });
 
 app.get('/getListeQuestions', function(req, res) {
-	console.log('getListeQuestions()');
+	console.log('----- getListeQuestions()');
 	
 	json = readQuestions(pathQuestions);
 	
@@ -50,7 +50,7 @@ app.get('/getListeQuestions', function(req, res) {
 });
 
 app.get('/getListeQuestionsPhysiques', function(req, res) {
-	console.log('getListeQuestionsPhysiques()');
+	console.log('----- getListeQuestionsPhysiques()');
 	
 	json = readQuestionsPhysiques();
 	
@@ -58,7 +58,7 @@ app.get('/getListeQuestionsPhysiques', function(req, res) {
 });
 
 app.get('/getListeQuestionsPsychologiques', function(req, res) {
-	console.log('getListeQuestionsPsychologiques()');
+	console.log('----- getListeQuestionsPsychologiques()');
 	
 	json = readQuestionsPsychologiques();
 	
@@ -66,7 +66,7 @@ app.get('/getListeQuestionsPsychologiques', function(req, res) {
 });
 
 app.get('/enregistrerUtilisateur', function(req, res) {
-	console.log('enregistrerUtilisateur()');
+	console.log('----- enregistrerUtilisateur()');
 	
 	json = readJsonReponse(req);
 	
@@ -109,7 +109,7 @@ app.get('/enregistrerUtilisateur', function(req, res) {
 });
 
 app.get('/voirRejeton', function(req, res) {
-	console.log('voirRejeton()');
+	console.log('----- voirRejeton()');
 	
 	reqJson = readJsonReponse(req);
 	
@@ -130,7 +130,7 @@ app.get('/voirRejeton', function(req, res) {
 });
 
 app.get('/mii', function(req, res) {
-	console.log('mii()');
+	console.log('----- mii()');
 	
 	resJson = afficherMimime();
 	
@@ -138,7 +138,7 @@ app.get('/mii', function(req, res) {
 });
 
 function genererMinime(id) {
-	console.log('afficherMimime()');
+	console.log('----- afficherMimime()');
 	
 	resJson = {
 		"accessoires": randomIntInc(1, 5),
@@ -157,7 +157,7 @@ function genererMinime(id) {
 }
 
 app.get('/enregistrerReponses', function(req, res) {
-	console.log('enregistrerReponses()');
+	console.log('----- enregistrerReponses()');
 	
 	json = readJsonReponse(req);
 	
@@ -201,7 +201,7 @@ function enregistrerMiniwe(id, minime) {
 }
 
 function enregistrerMini(id, minime, type) {
-	console.log("enregistrerMinime() : " + id + ", " + minime);
+	console.log("----- enregistrerMinime() : " + id + ", " + minime);
 	
 	var stmt = db.prepare("insert into mini (idUser, discriminent, numAccessoires, numBouche, numFond, numFront, numJambes, numMenton, numNez, numTempe, numTete, numYeux) VALUES ($idUser, $discriminent, $numAccessoires, $numBouche, $numFond, $numFront, $numJambes, $numMenton, $numNez, $numTempe, $numTete, $numYeux)");
 		var placeholders = {
@@ -233,7 +233,7 @@ function enregistrerMini(id, minime, type) {
 }
 
 app.get('/rechercherMiniwe', function(req, res) {
-	console.log('rechercherMiniwe()');
+	console.log('----- rechercherMiniwe()');
 	
 	json = readJsonReponse(req);
 	
@@ -256,7 +256,7 @@ app.get('/rechercherMiniwe', function(req, res) {
 				console.log("rechercherMiniwe : erreur lors de la récupération des propositions de miniwe");
 			}
 			
-			console.log("row = " + row);
+			//~ console.log("row = " + row);
 			
 			minimeMere = {
 				"id": row.id,
@@ -277,7 +277,7 @@ app.get('/rechercherMiniwe', function(req, res) {
 				"minimeMere": minimeMere,
 				"idMere": row.idpropo,
 				"pseudoMere": row.pseudoPropo,
-				"miniwe": genererMinime(row.idpropo)
+				"miniWe": genererMinime(row.idpropo)
 			};
 			
 			propositionsMiniwe.push(proposition);
@@ -300,7 +300,7 @@ function randomIntInc (low, high) {
 }
 
 function envoyerReponse(res, json) {
-	console.log("envoyerReponse : " + JSON.stringify(json));
+	console.log("----- envoyerReponse : " + JSON.stringify(json));
 	res.jsonp(json);
 }
 
@@ -317,7 +317,7 @@ function readQuestions(path) {
 }
 
 function readJsonReponse(req) {
-	console.log("readJsonReponse : " + req.query.q);
+	console.log("----- readJsonReponse : " + req.query.q);
 	json = JSON.parse(req.query.q);
 	
 	return json;
