@@ -232,6 +232,53 @@ function enregistrerMini(id, minime, type) {
 		stmt.finalize();
 }
 
+app.get('/proposerMiniwe', function(req, res) {
+	console.log('proposerMiniwe()');
+	
+	json = readJsonReponse(req);
+	
+	console.log("id = " + json.id);
+	
+	query = "select miniPropo.* from mini miniPropo, user userSelect ";
+	query += "join user userPropo ";
+	query += "	on userPropo.id = miniPropo.idUser ";
+	query += "where userSelect.id = " + json.id + " ";
+	query += "and (userSelect.cherche = userPropo.sexe or userSelect.cherche = 'm')";
+	
+	var propositionsMiniwe = [];
+	
+	db.serialize(function() {
+		db.each(query, propositionsMiniwe, function(err, row) {
+			if(err) {
+				console.log("proposerMiniwe : erreur lors de la récupération des propositions de miniwe");
+			}
+			
+			proposition = {
+				"id": row.id,
+				"idUser": row.idUser,
+				"accessoires": row.numAccessoires,
+				"bouche" : row.numBouche,
+				"fond": row.numFond,
+				"front" : row.numFront,
+				"jambes" : row.numJambes,
+				"menton" : row.numMenton,
+				"nez" : row.numNez,
+				"tempe" : row.numTempe,
+				"tete" : row.numTete,
+				"yeux" : row.numYeux
+			};
+			propositionsMiniwe.push(proposition);
+		}, function() {
+			envoyerReponse(res, propositionsMiniwe);
+		});
+	});
+	
+	
+});
+
+function proposerMiniwe(minime1, minime2) {
+	
+}
 
 function randomIntInc (low, high) {
     return Math.floor(Math.random() * (high - low + 1) + low);
