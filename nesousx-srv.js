@@ -232,8 +232,8 @@ function enregistrerMini(id, minime, type) {
 		stmt.finalize();
 }
 
-app.get('/proposerMiniwe', function(req, res) {
-	console.log('proposerMiniwe()');
+app.get('/rechercherMiniwe', function(req, res) {
+	console.log('rechercherMiniwe()');
 	
 	json = readJsonReponse(req);
 	
@@ -250,7 +250,7 @@ app.get('/proposerMiniwe', function(req, res) {
 	db.serialize(function() {
 		db.each(query, propositionsMiniwe, function(err, row) {
 			if(err) {
-				console.log("proposerMiniwe : erreur lors de la récupération des propositions de miniwe");
+				console.log("rechercherMiniwe : erreur lors de la récupération des propositions de miniwe");
 			}
 			
 			proposition = {
@@ -273,7 +273,7 @@ app.get('/proposerMiniwe', function(req, res) {
 		});
 	});
 	
-	
+	console.log("la proposition retournée = " + proposition[0]);
 });
 
 function proposerMiniwe(minime1, minime2) {
